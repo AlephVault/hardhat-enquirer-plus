@@ -1,0 +1,30 @@
+{
+  "name": "hardhat-enquirer-plus",
+  "version": "1.0.0",
+  "description": "A hardhat plugin leveraging the power of enquirer (and our enquirer-plus) to have many new prompt types and utilities.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Tests are not implemented for this package\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlephVault/enquirer-plus.git"
+  },
+  "keywords": [
+    "hardhat",
+    "enquirer-plus",
+    "plugin"
+  ],
+  "author": "Luis Masuelli",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlephVault/enquirer-plus/issues"
+  },
+  "homepage": "https://github.com/AlephVault/enquirer-plus#readme",
+  "dependencies": {
+    "enquirer-plus": "^1.0.0"
+  },
+  "peerDependencies": {
+    "hardhat": "^2.22.5"
+  }
+}
