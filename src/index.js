@@ -6,11 +6,11 @@ extendEnvironment((hre) => {
     commonExtender();
     if (hre.ethers) {
         const ethersExtender = require("./ethers");
-        ethersExtender(hre);
+        ethersExtender();
     }
     if (hre.viem) {
         const viemExtender = require("./viem");
-        viemExtender(hre);
+        viemExtender();
     }
 
     hre.enquirerPlus = {

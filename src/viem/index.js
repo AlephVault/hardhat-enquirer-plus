@@ -1,15 +1,16 @@
-const Enquirer_ = require("enquirer-plus");
+const {GivenOrValidAddressInput: GivenOrValidAddressInput_} = require("../common/addresses");
 
-/**
- * An input that takes a given value and/or asks and validates
- * the input until a valid address (or account index, if that
- * is allowed as an option) is given.
- */
-class GivenOrValidAddressInput extends Enquirer_.GivenOrValidInput {
+class GivenOrValidAddressInput extends GivenOrValidAddressInput_ {
+    constructor(options, hre) {
+        super(options, (v) => {
 
+        }, (v) => {
+
+        });
+    }
 }
 
-function viemExtender(hre) {
+function viemExtender() {
 
 }
 
