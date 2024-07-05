@@ -5,7 +5,7 @@ const Enquirer_ = require("enquirer-plus");
  * the input until a valid account index is given.
  */
 class GivenOrValidAccountInput extends Enquirer_.GivenOrValidInput {
-    constructor({...options}, validateAccount, convertAccount) {
+    constructor(options, validateAccount, convertAccount) {
         super({
             ...options, validate: async (v) => {
                 v = (v || "").trim();

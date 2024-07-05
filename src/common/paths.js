@@ -29,7 +29,6 @@ function traverseDirectory(directory, callback)
     });
 }
 
-
 /**
  * Returns the base directory of the project. It removes any
  * trailing slash.
@@ -41,7 +40,6 @@ function getProjectPrefix(hre) {
     while (root.endsWith('/')) root = root.substring(0, root.length - 1);
     return root;
 }
-
 
 /**
  * Removes the project prefix from the given file.
@@ -61,7 +59,6 @@ function removeProjectPrefix(file, hre) {
     }
 }
 
-
 /**
  * Normalizes a filename with respect to the current project
  * prefix (and returns the normalized filename or the base
@@ -76,7 +73,6 @@ function removeProjectPrefix(file, hre) {
 function normalizeByProjectPrefix(file, hre) {
     return removeProjectPrefix(path.resolve(getProjectPrefix(hre), file), hre);
 }
-
 
 module.exports = {
     getProjectPrefix, removeProjectPrefix, normalizeByProjectPrefix,

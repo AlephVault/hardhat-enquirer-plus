@@ -6,7 +6,7 @@ const Enquirer_ = require("enquirer-plus");
  * is given as an index) is given.
  */
 class GivenOrValidAddressInput extends Enquirer_.GivenOrValidInput {
-    constructor({...options, allowAccountIndex}, validateChecksumAddress, validateAccount, convertAccount) {
+    constructor({allowAccountIndex, ...options}, validateChecksumAddress, validateAccount, convertAccount) {
         super({
             ...options, validate: async (v) => {
                 v = (v || "").trim();

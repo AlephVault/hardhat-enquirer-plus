@@ -32,7 +32,7 @@ function collectContractNames(hre) {
  * A Select of the current in-project contract artifacts.
  */
 class GivenOrContractSelect extends Enquirer_.GivenOrSelect {
-    constructor(options, hre) {
+    constructor({hre, ...options}) {
         super({...options, choices: collectContractNames(hre)});
     }
 }

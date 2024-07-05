@@ -17,7 +17,7 @@ function validateAccount(hre) {
  * is given as an index) is given.
  */
 class GivenOrValidAddressInput extends GivenOrValidAddressInput_ {
-    constructor({...options, hre}) {
+    constructor({hre, ...options}) {
         super(options, (v) => {
             try {
                 hre.ethers.getAddress(v);
@@ -36,7 +36,7 @@ class GivenOrValidAddressInput extends GivenOrValidAddressInput_ {
  * the input until a valid account index is given.
  */
 class GivenOrValidAccountInput extends GivenOrValidAccountInput_ {
-    constructor({...options, hre}) {
+    constructor({hre, ...options}) {
         super(options, validateAccount(hre), async (v) => {
             return (await hre.ethers.getSigners())[parseInt(v)];
         });
