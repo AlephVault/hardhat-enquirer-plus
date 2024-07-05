@@ -1,10 +1,10 @@
-const contracts = require("./contracts");
+const {collectContractNames, GivenOrContractSelect} = require("./contracts");
+let {utils, promptClasses, Enquirer} = require("../core");
 
-function commonExtender(hre) {
-    hre.enquirerPlus ||= {};
-    hre.enquirerPlus.utils ||= {};
-    hre.enquirerPlus.utils.decimals = require("./decimals");
-    hre.enquirerPlus.utils.collectContractNames = () => collectContractNames(hre);
+function commonExtender() {
+    utils.decimals = require("./decimals");
+    utils.contractNames = collectContractNames;
+    promptClasses["hardhat-enquirer-plus:given-or-contract-select"] = GivenOrContractSelect;
 }
 
 module.exports = commonExtender;

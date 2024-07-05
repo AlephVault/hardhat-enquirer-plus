@@ -3,7 +3,7 @@ const {Enquirer, utils} = require("./core");
 
 extendEnvironment((hre) => {
     const commonExtender = require("./common");
-    commonExtender(hre);
+    commonExtender();
     if (hre.ethers) {
         const ethersExtender = require("./ethers");
         ethersExtender(hre);
