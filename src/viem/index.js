@@ -40,8 +40,10 @@ class GivenOrValidAccountInput extends GivenOrValidAccountInput_ {
 }
 
 function viemExtender() {
-    Enquirer.GivenOrContractSelect = GivenOrContractSelect;
-    promptClasses["hardhat-enquirer-plus:given-or-contract-select"] = GivenOrContractSelect;
+    Enquirer.GivenOrValidAddressInput = GivenOrValidAddressInput;
+    Enquirer.GivenOrValidAccountInput = GivenOrValidAccountInput;
+    promptClasses["hardhat-enquirer-plus:given-or-valid-address-input"] = GivenOrContractSelect;
+    promptClasses["hardhat-enquirer-plus:given-or-valid-account-input"] = GivenOrContractSelect;
 }
 
 module.exports = viemExtender;
