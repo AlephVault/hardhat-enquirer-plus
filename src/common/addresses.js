@@ -8,9 +8,9 @@ const Enquirer_ = require("enquirer-plus");
 class GivenOrValidAddressInput extends Enquirer_.GivenOrValidInput {
     constructor(options, validateChecksumAddress, validateAccount, convertAccount) {
         super({
-            ...options, validate: (v) => {
+            ...options, validate: async (v) => {
                 v = (v || "").trim();
-                return (/^0x[a-fA-F0-9]{40}$/.test(v) && validateChecksumAddress(v) || validateAccount(v));
+                return (/^0x[a-fA-F0-9]{40}$/.test(v) && validateChecksumAddress(v) || (await validateAccount(v)));
             },
             makeInvalidInputMessage: (v) => `Invalid account index or address: ${v}`,
             onInvalidGiven: (v) => console.error(`Invalid given account index or address: ${v}`)
