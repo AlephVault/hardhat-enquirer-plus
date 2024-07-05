@@ -2,7 +2,6 @@ const {GivenOrValidAddressInput: GivenOrValidAddressInput_} = require("../common
 const {GivenOrValidAccountInput: GivenOrValidAccountInput_} = require("../common/accounts");
 const {isAddress} = require('viem');
 const {Enquirer, promptClasses} = require("../core");
-const {GivenOrContractSelect} = require("../common/contracts"); // This module will be available by this point.
 
 function validateAccount(hre) {
     return async (v) => {
@@ -42,8 +41,8 @@ class GivenOrValidAccountInput extends GivenOrValidAccountInput_ {
 function viemExtender() {
     Enquirer.GivenOrValidAddressInput = GivenOrValidAddressInput;
     Enquirer.GivenOrValidAccountInput = GivenOrValidAccountInput;
-    promptClasses["hardhat-enquirer-plus:given-or-valid-address-input"] = GivenOrContractSelect;
-    promptClasses["hardhat-enquirer-plus:given-or-valid-account-input"] = GivenOrContractSelect;
+    promptClasses["hardhat-enquirer-plus:given-or-valid-address-input"] = GivenOrValidAddressInput;
+    promptClasses["hardhat-enquirer-plus:given-or-valid-account-input"] = GivenOrValidAccountInput;
 }
 
 module.exports = viemExtender;
