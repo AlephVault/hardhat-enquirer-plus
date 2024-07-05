@@ -1,5 +1,5 @@
 const {collectContractNames, GivenOrContractSelect} = require("./contracts");
-let {utils, promptClasses, Enquirer} = require("../core");
+const {utils, promptClasses, Enquirer} = require("../core");
 
 function commonExtender() {
     utils.decimals = require("./decimals");

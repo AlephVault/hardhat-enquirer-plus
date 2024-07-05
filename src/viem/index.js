@@ -1,6 +1,13 @@
 const {GivenOrValidAddressInput: GivenOrValidAddressInput_} = require("../common/addresses");
-const {isAddress} = require('viem'); // This module will be available by this point.
+const {isAddress} = require('viem');
+const {Enquirer, promptClasses} = require("../core");
+const {GivenOrContractSelect} = require("../common/contracts"); // This module will be available by this point.
 
+/**
+ * An input that takes a given value and/or asks and validates
+ * the input until a valid address (or account index, if that
+ * is given as an index) is given.
+ */
 class GivenOrValidAddressInput extends GivenOrValidAddressInput_ {
     constructor({...options, hre}) {
         super(options, (v) => {
@@ -16,7 +23,8 @@ class GivenOrValidAddressInput extends GivenOrValidAddressInput_ {
 }
 
 function viemExtender() {
-
+    Enquirer.GivenOrContractSelect = GivenOrContractSelect;
+    promptClasses["hardhat-enquirer-plus:given-or-contract-select"] = GivenOrContractSelect;
 }
 
 module.exports = viemExtender;

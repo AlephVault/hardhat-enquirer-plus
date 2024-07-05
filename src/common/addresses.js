@@ -3,7 +3,7 @@ const Enquirer_ = require("enquirer-plus");
 /**
  * An input that takes a given value and/or asks and validates
  * the input until a valid address (or account index, if that
- * is allowed as an option) is given.
+ * is given as an index) is given.
  */
 class GivenOrValidAddressInput extends Enquirer_.GivenOrValidInput {
     constructor(options, validateChecksumAddress, validateAccount, convertAccount) {

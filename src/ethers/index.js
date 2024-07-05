@@ -1,5 +1,12 @@
 const {GivenOrValidAddressInput: GivenOrValidAddressInput_} = require("../common/addresses");
+const {Enquirer, promptClasses} = require("../core");
+const {GivenOrContractSelect} = require("../common/contracts");
 
+/**
+ * An input that takes a given value and/or asks and validates
+ * the input until a valid address (or account index, if that
+ * is given as an index) is given.
+ */
 class GivenOrValidAddressInput extends GivenOrValidAddressInput_ {
     constructor({...options, hre}) {
         super(options, (v) => {
@@ -20,7 +27,8 @@ class GivenOrValidAddressInput extends GivenOrValidAddressInput_ {
 }
 
 function ethersExtender() {
-
+    Enquirer.GivenOrContractSelect = GivenOrContractSelect;
+    promptClasses["hardhat-enquirer-plus:given-or-contract-select"] = GivenOrContractSelect;
 }
 
 module.exports = ethersExtender;
