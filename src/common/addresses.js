@@ -6,11 +6,13 @@ const Enquirer_ = require("enquirer-plus");
  * is given as an index) is given.
  */
 class GivenOrValidAddressInput extends Enquirer_.GivenOrValidInput {
-    constructor(options, validateChecksumAddress, validateAccount, convertAccount) {
+    constructor({...options, allowAccountIndex}, validateChecksumAddress, validateAccount, convertAccount) {
         super({
             ...options, validate: async (v) => {
                 v = (v || "").trim();
-                return (/^0x[a-fA-F0-9]{40}$/.test(v) && validateChecksumAddress(v) || (await validateAccount(v)));
+                return (/^0x[a-fA-F0-9]{40}$/.test(v) && validateChecksumAddress(v) || (
+                    allowAccountIndex && await validateAccount(v)
+                ));
             },
             makeInvalidInputMessage: (v) => `Invalid account index or address: ${v}`,
             onInvalidGiven: (v) => console.error(`Invalid given account index or address: ${v}`)
