@@ -4,6 +4,7 @@ let {utils, promptClasses, Enquirer} = require("../core");
 function commonExtender() {
     utils.decimals = require("./decimals");
     utils.contractNames = collectContractNames;
+    Enquirer.GivenOrContractSelect = GivenOrContractSelect;
     promptClasses["hardhat-enquirer-plus:given-or-contract-select"] = GivenOrContractSelect;
 }
 
