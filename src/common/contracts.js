@@ -36,3 +36,8 @@ class GivenOrContractSelect extends Enquirer_.GivenOrSelect {
         super({...options, choices: collectContractNames(hre)});
     }
 }
+
+
+module.exports = {
+    GivenOrContractSelect, collectContractNames
+}
