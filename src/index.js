@@ -1,4 +1,5 @@
 const {extendEnvironment} = require("hardhat/config");
+const {Enquirer, utils} = require("./core");
 
 extendEnvironment((hre) => {
     const commonExtender = require("./common");
@@ -11,6 +12,10 @@ extendEnvironment((hre) => {
         const viemExtender = require("./viem");
         viemExtender(hre);
     }
+
+    hre.enquirerPlus = {
+        Enquirer, utils
+    };
 });
 
 module.exports = {};
