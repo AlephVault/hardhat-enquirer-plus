@@ -1,6 +1,4 @@
 const Enquirer_ = require("enquirer-plus");
-const {checkNotInteractive} = require("enquirer-plus/src/common");
-const {Input} = require("enquirer");
 
 /**
  * An input that takes a given value and/or asks and validates
@@ -8,20 +6,24 @@ const {Input} = require("enquirer");
  * is allowed as an option) is given.
  */
 class GivenOrValidAddressInput extends Enquirer_.GivenOrValidInput {
-    constructor(options, validate, convert) {
+    constructor(options, validateChecksumAddress, validateAccount, convertAccount) {
         super({
-            ...options, validate,
+            ...options, validate: (v) => {
+                v = (v || "").trim();
+                return (/^0x[a-fA-F0-9]{40}$/.test(v) && validateChecksumAddress(v) || validateAccount(v));
+            },
             makeInvalidInputMessage: (v) => `Invalid account index or address: ${v}`,
             onInvalidGiven: (v) => console.error(`Invalid given account index or address: ${v}`)
         });
-        this._convert = convert;
+        this._convertAccount = convertAccount;
     }
 
     /**
      * Runs the base input and properly converts the value.
      */
     async run() {
-        return this._convert(await super.run());
+        let result = (await super.run()).trim();
+        return /^0x[a-fA-F0-9]{40}$/.test(result) ? result : this._convertAccount(result);
     }
 }
 
