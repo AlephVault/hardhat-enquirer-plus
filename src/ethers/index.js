@@ -6,6 +6,8 @@ class GivenOrValidAddressInput extends GivenOrValidAddressInput_ {
 
         }, (v) => {
 
+        }, async (v) => {
+            return (await hre.ethers.getSigners())[parseInt(v)].address;
         });
     }
 }

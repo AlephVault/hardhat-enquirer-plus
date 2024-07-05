@@ -23,7 +23,7 @@ class GivenOrValidAddressInput extends Enquirer_.GivenOrValidInput {
      */
     async run() {
         let result = (await super.run()).trim();
-        return /^0x[a-fA-F0-9]{40}$/.test(result) ? result : this._convertAccount(result);
+        return /^0x[a-fA-F0-9]{40}$/.test(result) ? result : await this._convertAccount(result);
     }
 }
 
