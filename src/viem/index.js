@@ -2,7 +2,7 @@ const {GivenOrValidAddressInput: GivenOrValidAddressInput_} = require("../common
 const {isAddress} = require('viem'); // This module will be available by this point.
 
 class GivenOrValidAddressInput extends GivenOrValidAddressInput_ {
-    constructor(options, hre) {
+    constructor({...options, hre}) {
         super(options, (v) => {
             return isAddress(v, {strict: true});
         }, async (v) => {

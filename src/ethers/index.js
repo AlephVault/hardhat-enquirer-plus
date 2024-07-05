@@ -1,7 +1,7 @@
 const {GivenOrValidAddressInput: GivenOrValidAddressInput_} = require("../common/addresses");
 
 class GivenOrValidAddressInput extends GivenOrValidAddressInput_ {
-    constructor(options, hre) {
+    constructor({...options, hre}) {
         super(options, (v) => {
             try {
                 hre.ethers.getAddress(v);
