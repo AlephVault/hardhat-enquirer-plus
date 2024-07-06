@@ -4,6 +4,7 @@ const {Enquirer, promptClasses} = require("../core");
 
 function validateAccount(hre) {
     return async (v) => {
+        console.log(v);
         if (!/^\d+$/.test(v)) return false;
         v = parseInt(v);
         return v >= 0 && v < (await hre.ethers.getSigners()).length;
@@ -24,7 +25,7 @@ class GivenOrValidAddressInput extends GivenOrValidAddressInput_ {
             } catch(e) {
                 return false;
             }
-        }, validateAccount, async (v) => {
+        }, validateAccount(hre), async (v) => {
             return (await hre.ethers.getSigners())[parseInt(v)].address;
         });
     }
