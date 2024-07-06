@@ -4,10 +4,11 @@ const {Enquirer, promptClasses} = require("../core");
 
 function validateAccount(hre) {
     return async (v) => {
-        console.log(v);
-        if (!/^\d+$/.test(v)) return false;
-        v = parseInt(v);
-        return v >= 0 && v < (await hre.ethers.getSigners()).length;
+        if (typeof v === "string") {
+            if (!/^\d+$/.test(v)) return false;
+            v = parseInt(v);
+            return v >= 0 && v < (await hre.ethers.getSigners()).length;
+        } else return !!(v && v.provider && v.address);
     }
 }
 

@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/AlephVault/enquirer-plus#readme",
   "dependencies": {
-    "enquirer-plus": "^1.0.2"
+    "enquirer-plus": "^1.0.4"
   },
   "peerDependencies": {
     "hardhat": "^2.22.5"

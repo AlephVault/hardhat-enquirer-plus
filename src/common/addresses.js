@@ -9,7 +9,7 @@ class GivenOrValidAddressInput extends Enquirer_.GivenOrValidInput {
     constructor({allowAccountIndex, ...options}, validateChecksumAddress, validateAccount, convertAccount) {
         super({
             ...options, validate: async (v) => {
-                v = (v || "").trim();
+                v = typeof v === "string" ? v.trim() : (v || "");
                 return (/^0x[a-fA-F0-9]{40}$/.test(v) && validateChecksumAddress(v) || (
                     allowAccountIndex && await validateAccount(v)
                 ));
@@ -18,14 +18,17 @@ class GivenOrValidAddressInput extends Enquirer_.GivenOrValidInput {
             onInvalidGiven: (v) => console.error(`Invalid given account index or address: ${v}`)
         });
         this._convertAccount = convertAccount;
+        this._allowAccountIndex = allowAccountIndex;
     }
 
-    /**
-     * Runs the base input and properly converts the value.
-     */
-    async run() {
-        let result = (await super.run()).trim();
-        return /^0x[a-fA-F0-9]{40}$/.test(result) ? result : await this._convertAccount(result);
+    async result(v) {
+        if (/^0x[a-fA-F0-9]{40}$/.test(v) || !this._allowAccountIndex) {
+            console.log("Preparing as address")
+            return v;
+        } else {
+            console.log("Preparing as account");
+            return await this._convertAccount(v);
+        }
     }
 }
 

@@ -5,9 +5,11 @@ const {Enquirer, promptClasses} = require("../core");
 
 function validateAccount(hre) {
     return async (v) => {
-        if (!/^\d+$/.test(v)) return false;
-        v = parseInt(v);
-        return v >= 0 && v < (await hre.viem.getWalletClients()).length;
+        if (typeof v === "string") {
+            if (!/^\d+$/.test(v)) return false;
+            v = parseInt(v);
+            return v >= 0 && v < (await hre.viem.getWalletClients()).length;
+        } else return !!(v && v.account && v.account.address);
     }
 }
 

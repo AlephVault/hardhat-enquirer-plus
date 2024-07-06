@@ -1,6 +1,6 @@
 import type { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox-viem";
-import "hardhat-enquirer-plus";
+import "..";
 
 const config: HardhatUserConfig = {
   solidity: "0.8.24",
