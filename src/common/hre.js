@@ -7,10 +7,10 @@ let hre = null;
 
 
 /**
- * Inits this package with the given arguments.
+ * Sets the initializing hre in this package.
  * @param _hre The HRE instance.
  */
-function init({hre: _hre}) {
+function setHRE(_hre) {
     hre = _hre
 }
 
@@ -23,5 +23,5 @@ function getHRE() {
 }
 
 module.exports = {
-    init, getHRE
+    init: setHRE, getHRE
 }

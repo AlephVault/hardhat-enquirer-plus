@@ -14,8 +14,9 @@ extendEnvironment((hre) => {
         viemExtender();
     }
 
+    init(hre);
     hre.enquirerPlus = {
-        Enquirer, utils, init: (options) => init({hre, ...(options || {})})
+        Enquirer, utils
     };
 });
 
