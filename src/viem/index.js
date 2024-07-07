@@ -2,6 +2,7 @@ const {GivenOrValidAddressInput: GivenOrValidAddressInput_} = require("../common
 const {GivenOrValidAccountInput: GivenOrValidAccountInput_} = require("../common/accounts");
 const {isAddress} = require('viem');
 const {Enquirer, promptClasses} = require("../core");
+const {getHRE} = require("../common/hre");
 
 function validateAccount(hre) {
     return async (v) => {
@@ -20,6 +21,13 @@ function validateAccount(hre) {
  */
 class GivenOrValidAddressInput extends GivenOrValidAddressInput_ {
     constructor({hre, ...options}) {
+        hre = hre || getHRE();
+        if (!hre) {
+            throw new Error(
+                "The address input prompt requires an HRE instance. Either pass it " +
+                "as an `hre` option, or set it globally using hre.enquirerPlus.init()"
+            );
+        }
         super(options, (v) => {
             return isAddress(v, {strict: true});
         }, validateAccount(hre), async (v) => {
@@ -34,6 +42,13 @@ class GivenOrValidAddressInput extends GivenOrValidAddressInput_ {
  */
 class GivenOrValidAccountInput extends GivenOrValidAccountInput_ {
     constructor({hre, ...options}) {
+        hre = hre || getHRE();
+        if (!hre) {
+            throw new Error(
+                "The account input prompt requires an HRE instance. Either pass it " +
+                "as an `hre` option, or set it globally using hre.enquirerPlus.init()"
+            );
+        }
         super(options, validateAccount(hre), async (v) => {
             return (await hre.viem.getWalletClients())[parseInt(v)];
         });

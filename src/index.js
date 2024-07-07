@@ -1,5 +1,6 @@
 const {extendEnvironment} = require("hardhat/config");
 const {Enquirer, utils} = require("./core");
+const {init} = require("./common/hre");
 
 extendEnvironment((hre) => {
     const commonExtender = require("./common");
@@ -14,7 +15,7 @@ extendEnvironment((hre) => {
     }
 
     hre.enquirerPlus = {
-        Enquirer, utils
+        Enquirer, utils, init: (options) => init({hre, ...(options || {})})
     };
 });
 
