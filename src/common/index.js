@@ -5,7 +5,7 @@ function commonExtender() {
     utils.decimals = require("./decimals");
     utils.contractNames = collectContractNames;
     Enquirer.GivenOrContractSelect = GivenOrContractSelect;
-    promptClasses["hardhat-enquirer-plus:given-or-contract-select"] = GivenOrContractSelect;
+    promptClasses["plus:hardhat:given-or-contract-select"] = GivenOrContractSelect;
 }
 
 module.exports = commonExtender;

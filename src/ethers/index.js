@@ -47,8 +47,8 @@ class GivenOrValidAccountInput extends GivenOrValidAccountInput_ {
 function ethersExtender() {
     Enquirer.GivenOrValidAddressInput = GivenOrValidAddressInput;
     Enquirer.GivenOrValidAccountInput = GivenOrValidAccountInput;
-    promptClasses["hardhat-enquirer-plus:given-or-valid-address-input"] = GivenOrValidAddressInput;
-    promptClasses["hardhat-enquirer-plus:given-or-valid-account-input"] = GivenOrValidAccountInput;
+    promptClasses["plus:hardhat:given-or-valid-address-input"] = GivenOrValidAddressInput;
+    promptClasses["plus:hardhat:given-or-valid-account-input"] = GivenOrValidAccountInput;
 }
 
 module.exports = ethersExtender;
