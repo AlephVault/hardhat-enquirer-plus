@@ -10,7 +10,6 @@ function toNumber(value, allowNegative = false) {
     return value;
 }
 
-
 /**
  * Repeats the same string N times.
  * @param value The string to repeat.
@@ -25,7 +24,6 @@ function repeat(value, times) {
     }
     return result;
 }
-
 
 /**
  * Trims trailing zeroes of a fractional part.
@@ -68,7 +66,6 @@ function load(value, decimals) {
         throw new Error("Invalid numeric value");
     }
 }
-
 
 /**
  * Dumps a string value from a bigint with a certain decimal precision.
