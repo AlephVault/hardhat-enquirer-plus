@@ -23,8 +23,8 @@ class GivenOrValidAddressInput extends GivenOrValidAddressInput_ {
         hre = hre || getHRE();
         if (!hre) {
             throw new Error(
-                "The address input prompt requires an HRE instance. Either pass it " +
-                "as an `hre` option, or set it globally using hre.enquirerPlus.init()"
+                "This prompt type can only be used when hardhat-enquirer-plus is installed " +
+                "as a plug-in in a hardhat project"
             );
         }
         super(options, (v) => {
@@ -49,8 +49,8 @@ class GivenOrValidAccountInput extends GivenOrValidAccountInput_ {
         hre = hre || getHRE();
         if (!hre) {
             throw new Error(
-                "The account input prompt requires an HRE instance. Either pass it " +
-                "as an `hre` option, or set it globally using hre.enquirerPlus.init()"
+                "This prompt type can only be used when hardhat-enquirer-plus is installed " +
+                "as a plug-in in a hardhat project"
             );
         }
         super(options, validateAccount(hre), async (v) => {

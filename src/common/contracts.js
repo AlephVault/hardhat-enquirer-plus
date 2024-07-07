@@ -2,6 +2,7 @@ const Enquirer_ = require("enquirer-plus");
 const pathsUtils = require("./paths");
 const fs = require("fs");
 const path = require("path");
+const {getHRE} = require("./hre");
 
 /**
  * Collects all the contract names from the compiled artifacts.
@@ -33,6 +34,13 @@ function collectContractNames(hre) {
  */
 class GivenOrContractSelect extends Enquirer_.GivenOrSelect {
     constructor({hre, ...options}) {
+        hre = hre || getHRE();
+        if (!hre) {
+            throw new Error(
+                "This prompt type can only be used when hardhat-enquirer-plus is installed " +
+                "as a plug-in in a hardhat project"
+            );
+        }
         super({...options, choices: collectContractNames(hre)});
     }
 }
