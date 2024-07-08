@@ -1,17 +1,16 @@
 
 /**
- * The current hre instance.
+ * The current hre instance. Intentionally project-wide.
  * @type {null}
  */
-let hre = null;
-
+global.__hre = null;
 
 /**
  * Sets the initializing hre in this package.
  * @param _hre The HRE instance.
  */
 function setHRE(_hre) {
-    hre = _hre
+    global.__hre = _hre
 }
 
 /**
@@ -19,7 +18,7 @@ function setHRE(_hre) {
  * @returns The HRE instance.
  */
 function getHRE() {
-    return hre;
+    return global.__hre;
 }
 
 module.exports = {
