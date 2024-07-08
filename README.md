@@ -28,7 +28,9 @@ const answers = await hre.enquirerPlus.Enquirer.prompt([
     // Asking for an account index. Obtaining an ethers or viem signer object.
     {type: "plus:hardhat:given-or-valid-account-input", message: "Give an account", name: "account"},
     // Asking for one of the built contracts (artifacts).
-    {type: "plus:hardhat:given-or-contract-select", message: "Select a contract", name: "contract"}
+    {type: "plus:hardhat:given-or-contract-select", message: "Select a contract", name: "contract"},
+    // Asking for one native amount (expressed with units like this: "2ether", "1.5 ether", "0.5gwei", ...).
+    {type: "plus:hardhat:given-or-token-amount-input", message: "Enter an amount", name: "amount"}
 ]);
 ```
 
