@@ -23,5 +23,5 @@ function getHRE() {
 }
 
 module.exports = {
-    init: setHRE, getHRE
+    setHRE, getHRE
 }
