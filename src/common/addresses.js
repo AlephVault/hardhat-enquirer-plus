@@ -14,7 +14,6 @@ class GivenOrValidAddressInput extends Enquirer_.GivenOrValidInput {
                     return true;
                 }
                 return !!(allowAccountIndex && await validateAccount(v));
-
             },
             makeInvalidInputMessage: (v) => `Invalid account index or address: ${v}`,
             onInvalidGiven: (v) => console.error(`Invalid given account index or address: ${v}`)

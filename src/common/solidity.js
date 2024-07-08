@@ -59,7 +59,6 @@ class GivenOrSolidityVersionSelect extends GivenOrSelect {
             );
         }
         const newOptions = {...options, ...(getSolidityVersionSettings(hre))};
-        console.log("new options", newOptions);
         super(newOptions);
     }
 }
