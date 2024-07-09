@@ -56,11 +56,6 @@ class GivenOrValidAccountInput extends GivenOrValidAccountInput_ {
     }
 }
 
-async function normalizeDeploymentId(hre, deploymentId) {
-    const chainId = await (await hre.viem.getWalletClients())[0].getChainId()
-    return deploymentId || `chain-${chainId}`;
-}
-
 /**
  * A Select prompt to choose a deployed ignition contract in the current network.
  */
