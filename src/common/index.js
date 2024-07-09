@@ -9,7 +9,7 @@ function commonExtender() {
     utils.fixedpoint = fixedpoint;
     utils.contractNames = collectContractNames;
     utils.tokenAmounts = tokenAmounts;
-    Enquirer.GivenOrSolidityVersionSelect = GivenOrSolidityVersionSelect
+    Enquirer.GivenOrSolidityVersionSelect = GivenOrSolidityVersionSelect;
     Enquirer.GivenOrContractSelect = GivenOrContractSelect;
     Enquirer.GivenOrValidTokenAmountInput = GivenOrValidTokenAmountInput;
     promptClasses["plus:hardhat:given-or-contract-select"] = GivenOrContractSelect;

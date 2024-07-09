@@ -3,6 +3,7 @@ const {GivenOrValidAccountInput: GivenOrValidAccountInput_} = require("../common
 const {isAddress} = require('viem');
 const {Enquirer, promptClasses} = require("../core");
 const {getHRE} = require("../common/hre");
+const {GivenOrDeployedContractSelect: GivenOrDeployedContractSelect_, listDeployedContracts} = require("../common/deployments");
 
 function validateAccount(hre) {
     return async (v) => {
@@ -55,11 +56,31 @@ class GivenOrValidAccountInput extends GivenOrValidAccountInput_ {
     }
 }
 
+async function normalizeDeploymentId(hre, deploymentId) {
+    const chainId = await (await hre.viem.getWalletClients())[0].getChainId()
+    return deploymentId || `chain-${chainId}`;
+}
+
+/**
+ * A Select prompt to choose a deployed ignition contract in the current network.
+ */
+class GivenOrDeployedContractSelect extends GivenOrDeployedContractSelect_ {
+    constructor({hre, deploymentId, ...options}) {
+        super({hre, deploymentId, ...options});
+    }
+
+    async getChainId() {
+        return await (await this._hre.viem.getWalletClients())[0].getChainId();
+    }
+}
+
 function viemExtender() {
     Enquirer.GivenOrValidAddressInput = GivenOrValidAddressInput;
     Enquirer.GivenOrValidAccountInput = GivenOrValidAccountInput;
+    Enquirer.GivenOrDeployedContractSelect = GivenOrDeployedContractSelect;
     promptClasses["plus:hardhat:given-or-valid-address-input"] = GivenOrValidAddressInput;
     promptClasses["plus:hardhat:given-or-valid-account-input"] = GivenOrValidAccountInput;
+    promptClasses["plus:hardhat:given-or-deployed-contract-select"] = GivenOrDeployedContractSelect;
 }
 
 module.exports = viemExtender;

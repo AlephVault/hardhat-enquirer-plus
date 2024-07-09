@@ -2,6 +2,7 @@ const {GivenOrValidAddressInput: GivenOrValidAddressInput_} = require("../common
 const {GivenOrValidAccountInput: GivenOrValidAccountInput_} = require("../common/accounts");
 const {Enquirer, promptClasses} = require("../core");
 const {getHRE} = require("../common/hre");
+const {GivenOrDeployedContractSelect: GivenOrDeployedContractSelect_, listDeployedContracts} = require("../common/deployments");
 
 function validateAccount(hre) {
     return async (v) => {
@@ -59,11 +60,26 @@ class GivenOrValidAccountInput extends GivenOrValidAccountInput_ {
     }
 }
 
+/**
+ * A Select prompt to choose a deployed ignition contract in the current network.
+ */
+class GivenOrDeployedContractSelect extends GivenOrDeployedContractSelect_ {
+    constructor({hre, deploymentId, ...options}) {
+        super({hre, deploymentId, ...options});
+    }
+
+    async getChainId() {
+        return (await this._hre.ethers.provider.getNetwork()).chainId;
+    }
+}
+
 function ethersExtender() {
     Enquirer.GivenOrValidAddressInput = GivenOrValidAddressInput;
     Enquirer.GivenOrValidAccountInput = GivenOrValidAccountInput;
+    Enquirer.GivenOrDeployedContractSelect = GivenOrDeployedContractSelect;
     promptClasses["plus:hardhat:given-or-valid-address-input"] = GivenOrValidAddressInput;
     promptClasses["plus:hardhat:given-or-valid-account-input"] = GivenOrValidAccountInput;
+    promptClasses["plus:hardhat:given-or-deployed-contract-select"] = GivenOrDeployedContractSelect;
 }
 
 module.exports = ethersExtender;
