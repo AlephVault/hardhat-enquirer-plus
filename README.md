@@ -5,7 +5,7 @@ A hardhat plugin leveraging the power of enquirer (and our enquirer-plus) to hav
 Run this command to install it from NPM:
 
 ```shell
-npm install hardhat-enquirer-plus@^1.0.0
+npm install hardhat-enquirer-plus@^1.0.7
 ```
 
 # Usage
