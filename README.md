@@ -5,7 +5,7 @@ A hardhat plugin leveraging the power of enquirer (and our enquirer-plus) to hav
 Run this command to install it from NPM:
 
 ```shell
-npm install hardhat-enquirer-plus@^1.0.7
+npm install hardhat-enquirer-plus@^1.0.8
 ```
 
 # Usage
@@ -29,6 +29,8 @@ const answers = await hre.enquirerPlus.Enquirer.prompt([
     {type: "plus:hardhat:given-or-valid-account-input", message: "Give an account", name: "account"},
     // Asking for one of the built contracts (artifacts).
     {type: "plus:hardhat:given-or-contract-select", message: "Select a contract", name: "contract"},
+    // Asking for one of the ignition-deployed contracts (artifacts) in the current network.
+    {type: "plus:hardhat:given-or-deployed-contract-select", message: "Select a deployed contract", name: "contract"},
     // Asking for one native amount (expressed with units like this: "2ether", "1.5 ether", "0.5gwei", ...).
     {type: "plus:hardhat:given-or-token-amount-input", message: "Enter an amount", name: "amount"},
     // Asking to pick one of the installed Solidity versions.
