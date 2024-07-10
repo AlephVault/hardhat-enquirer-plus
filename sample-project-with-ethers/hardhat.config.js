@@ -1,4 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox");
+require("hardhat-common-tools");
 require("..");
 
 /** @type import('hardhat/config').HardhatUserConfig */

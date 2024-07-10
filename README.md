@@ -20,7 +20,7 @@ Once there, you can make use of it (this supports both viem-enabled and ethers-e
 ## Using the `Enquirer.prompt` method:
 
 ```javascript
-const answers = await hre.enquirerPlus.Enquirer.prompt([
+console.log(await hre.enquirerPlus.Enquirer.prompt([
     // Asking for a checksum address or account index. Obtaining an address.
     {type: "plus:hardhat:given-or-valid-address-input", message: "Give an address", name: "address1", allowAccountIndex: true},
     // Asking for a checksum address. Obtaining an address.
@@ -30,12 +30,12 @@ const answers = await hre.enquirerPlus.Enquirer.prompt([
     // Asking for one of the built contracts (artifacts).
     {type: "plus:hardhat:given-or-contract-select", message: "Select a contract", name: "contract"},
     // Asking for one of the ignition-deployed contracts (artifacts) in the current network.
-    {type: "plus:hardhat:given-or-deployed-contract-select", message: "Select a deployed contract", name: "contract"},
+    {type: "plus:hardhat:given-or-deployed-contract-select", message: "Select a deployed contract", name: "deployed-contract"},
     // Asking for one native amount (expressed with units like this: "2ether", "1.5 ether", "0.5gwei", ...).
     {type: "plus:hardhat:given-or-token-amount-input", message: "Enter an amount", name: "amount"},
     // Asking to pick one of the installed Solidity versions.
     {type: "plus:hardhat:given-or-solidity-version-select", message: "Pick an in-project solidity version", name: "version"}
-]);
+]));
 ```
 
 All these prompt types also support a `given` option key. If a value is set there and passes the proper
