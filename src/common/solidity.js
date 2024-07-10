@@ -1,5 +1,4 @@
 const GivenOrSelect = require("enquirer-plus/src/given-or-select");
-const {getHRE} = require("./hre");
 
 /**
  * Gets the {initial, choices} settings of solidity versions
@@ -51,16 +50,11 @@ function getSolidityVersionSettings(hre) {
  */
 class GivenOrSolidityVersionSelect extends GivenOrSelect {
     constructor({hre, ...options}) {
-        hre = hre || getHRE();
-        if (!hre) {
-            throw new Error(
-                "This prompt type can only be used when hardhat-enquirer-plus is installed " +
-                "as a plug-in in a hardhat project"
-            );
-        }
         const newOptions = {...options, ...(getSolidityVersionSettings(hre))};
         super(newOptions);
     }
 }
 
-module.exports = GivenOrSolidityVersionSelect;
+module.exports = {
+    GivenOrSolidityVersionSelect
+};

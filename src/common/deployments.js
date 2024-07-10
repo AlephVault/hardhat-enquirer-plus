@@ -1,7 +1,6 @@
 const path = require("path");
 const fs = require("fs");
 const Enquirer_ = require("enquirer-plus");
-const {getHRE} = require("./hre");
 
 /**
  * Lists all the deployed contract ids in a deployment id.
@@ -21,13 +20,6 @@ async function listDeployedContracts(hre, deploymentId) {
  */
 class GivenOrDeployedContractSelect extends Enquirer_.GivenOrSelect {
     constructor({hre, deploymentId, ...options}) {
-        hre = hre || getHRE();
-        if (!hre) {
-            throw new Error(
-                "This prompt type can only be used when hardhat-enquirer-plus is installed " +
-                "as a plug-in in a hardhat project"
-            );
-        }
         super({...options, choices: ["Loading..."]});
         this._deploymentId = deploymentId;
         this._hre = hre;
