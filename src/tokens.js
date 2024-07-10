@@ -82,7 +82,7 @@ function parseTokenAmount(amount) {
  * given unit and an amount of that unit (e.g. 2.5eth).
  */
 class GivenOrValidTokenAmountInput extends GivenOrValidInput {
-    constructor({allowAccountIndex, ...options}, validateChecksumAddress, validateAccount, convertAccount) {
+    constructor(options) {
         super({
             ...options, validate: async (v) => {
                 const parsed_ = parseTokenAmount(typeof v === "string" ? v.trim() : (v || ""));
@@ -99,8 +99,6 @@ class GivenOrValidTokenAmountInput extends GivenOrValidInput {
             makeInvalidInputMessage: (v) => `Invalid account index or address: ${v}`,
             onInvalidGiven: (v) => console.error(`Invalid given account index or address: ${v}`)
         });
-        this._convertAccount = convertAccount;
-        this._allowAccountIndex = allowAccountIndex;
     }
 
     async result(v) {

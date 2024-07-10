@@ -1,22 +1,51 @@
 const {extendEnvironment} = require("hardhat/config");
 const {Enquirer, utils, promptClasses} = require("./core");
 const fixedpoint = require("./fixedpoint");
-const {collectContractNames, GivenOrContractSelect} = require("./contracts");
-const {GivenOrSolidityVersionSelect} = require("./solidity");
+const {collectContractNames, GivenOrContractSelect: GivenOrContractSelect_} = require("./contracts");
+const {GivenOrSolidityVersionSelect: GivenOrSolidityVersionSelect_} = require("./solidity");
 const {GivenOrValidTokenAmountInput, tokenAmounts} = require("./tokens");
-const {GivenOrValidAddressInput} = require("./addresses");
-const {GivenOrValidAccountInput} = require("./accounts");
-const {GivenOrDeployedContractSelect} = require("./deployments");
+const {GivenOrValidAddressInput: GivenOrValidAddressInput_} = require("./addresses");
+const {GivenOrValidAccountInput: GivenOrValidAccountInput_} = require("./accounts");
+const {GivenOrDeployedContractSelect: GivenOrDeployedContractSelect_} = require("./deployments");
 
 extendEnvironment((hre) => {
     utils.fixedpoint = fixedpoint;
     utils.contractNames = collectContractNames;
     utils.tokenAmounts = tokenAmounts;
-    // TODO: Actually, create one subclass for each of these, dynamically providing
-    //       the hre instance among the options, and get rid of the setHRE calls.
-    Enquirer.GivenOrSolidityVersionSelect = GivenOrSolidityVersionSelect;
+
+    class GivenOrContractSelect extends GivenOrContractSelect_ {
+        constructor(options) {
+            super({hre, ...options});
+        }
+    }
+
+    class GivenOrSolidityVersionSelect extends GivenOrSolidityVersionSelect_ {
+        constructor(options) {
+            super({hre, ...options});
+        }
+    }
+
+    class GivenOrValidAddressInput extends GivenOrValidAddressInput_ {
+        constructor(options) {
+            super({hre, ...options});
+        }
+    }
+
+    class GivenOrValidAccountInput extends GivenOrValidAccountInput_ {
+        constructor(options) {
+            super({hre, ...options});
+        }
+    }
+
+    class GivenOrDeployedContractSelect extends GivenOrDeployedContractSelect_ {
+        constructor(options) {
+            super({hre, ...options});
+        }
+    }
+
     Enquirer.GivenOrContractSelect = GivenOrContractSelect;
     Enquirer.GivenOrValidTokenAmountInput = GivenOrValidTokenAmountInput;
+    Enquirer.GivenOrSolidityVersionSelect = GivenOrSolidityVersionSelect;
     Enquirer.GivenOrValidAddressInput = GivenOrValidAddressInput;
     Enquirer.GivenOrValidAccountInput = GivenOrValidAccountInput;
     Enquirer.GivenOrDeployedContractSelect = GivenOrDeployedContractSelect;
