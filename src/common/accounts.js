@@ -5,20 +5,22 @@ const Enquirer_ = require("enquirer-plus");
  * the input until a valid account index is given.
  */
 class GivenOrValidAccountInput extends Enquirer_.GivenOrValidInput {
-    constructor(options, validateAccount, convertAccount) {
+    constructor({hre, ...options}) {
         super({
-            ...options, validate: async (v) => {
-                return validateAccount(v);
-            },
+            ...options, validate: (v) => this._isAccount(v),
             makeInvalidInputMessage: (v) => `Invalid account index: ${v}`,
             onInvalidGiven: (v) => console.error(`Invalid given account index: ${v}`)
         });
-        this._convertAccount = convertAccount;
+        this._hre = hre;
+    }
+
+    async _isAccount(v) {
+        return await this._hre.common.getSigner(parseInt(v));
     }
 
     async result(v) {
         try {
-            return await this._convertAccount(v);
+            return await this._hre.common.getSigner(parseInt(v));
         } catch(e) {
             return null;
         }
