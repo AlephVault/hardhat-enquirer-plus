@@ -33,12 +33,8 @@ class GivenOrDeployedContractSelect extends Enquirer_.GivenOrSelect {
         this._hre = hre;
     }
 
-    async getChainId() {
-        throw new Error("getChainId must be implemented - use a subclass of GivenOrDeployedContractSelect instead");
-    }
-
     async listDeployedContracts() {
-        const deploymentId = this._deploymentId || `chain-${(await this.getChainId())}`;
+        const deploymentId = this._deploymentId || `chain-${(await this._hre.common.getChainId())}`;
         return listDeployedContracts(this._hre, deploymentId);
     }
 
