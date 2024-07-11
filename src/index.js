@@ -6,7 +6,7 @@ const {GivenOrSolidityVersionSelect: GivenOrSolidityVersionSelect_} = require(".
 const {GivenOrValidTokenAmountInput, tokenAmounts} = require("./tokens");
 const {GivenOrValidAddressInput: GivenOrValidAddressInput_} = require("./addresses");
 const {GivenOrValidAccountInput: GivenOrValidAccountInput_} = require("./accounts");
-const {GivenOrDeployedContractSelect: GivenOrDeployedContractSelect_} = require("./deployments");
+const {GivenOrDeployedContractSelect: GivenOrDeployedContractSelect_, listDeployedContracts} = require("./deployments");
 
 extendEnvironment((hre) => {
     utils.fixedpoint = fixedpoint;
@@ -58,6 +58,10 @@ extendEnvironment((hre) => {
     hre.enquirerPlus = {
         Enquirer, utils
     };
+
+    if (hre.ignition) {
+        hre.ignition.listDeployedContracts = (deploymentId) => listDeployedContracts(hre, deploymentId);
+    }
 });
 
 module.exports = {};

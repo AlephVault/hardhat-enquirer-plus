@@ -9,6 +9,7 @@ const Enquirer_ = require("enquirer-plus");
  * @returns {Promise<string[]>} The list of contract ids.
  */
 async function listDeployedContracts(hre, deploymentId) {
+    deploymentId = deploymentId || `chain-${(await this._hre.common.getChainId())}`;
     const fullPath = path.resolve(
         hre.config.paths.root, "ignition", "deployments", deploymentId, "deployed_addresses.json"
     );
@@ -26,8 +27,7 @@ class GivenOrDeployedContractSelect extends Enquirer_.GivenOrSelect {
     }
 
     async listDeployedContracts() {
-        const deploymentId = this._deploymentId || `chain-${(await this._hre.common.getChainId())}`;
-        return listDeployedContracts(this._hre, deploymentId);
+        return listDeployedContracts(this._hre, this._deploymentId);
     }
 
     async run() {
