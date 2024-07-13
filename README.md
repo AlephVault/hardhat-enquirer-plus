@@ -33,7 +33,7 @@ console.log(await hre.enquirerPlus.Enquirer.prompt([
     // Asking for one of the ignition-deployed contracts (artifacts) in the current network.
     {type: "plus:hardhat:given-or-deployed-contract-select", message: "Select a deployed contract", name: "deployed-contract"},
     // Asking for one native amount (expressed with units like this: "2ether", "1.5 ether", "0.5gwei", ...).
-    {type: "plus:hardhat:given-or-token-amount-input", message: "Enter an amount", name: "amount"},
+    {type: "plus:hardhat:given-or-valid-token-amount-input", message: "Enter an amount", name: "amount"},
     // Asking to pick one of the installed Solidity versions.
     {type: "plus:hardhat:given-or-solidity-version-select", message: "Pick an in-project solidity version", name: "version"}
 ]));
