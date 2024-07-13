@@ -51,6 +51,7 @@ extendEnvironment((hre) => {
     Enquirer.GivenOrDeployedContractSelect = GivenOrDeployedContractSelect;
     promptClasses["plus:hardhat:given-or-contract-select"] = GivenOrContractSelect;
     promptClasses["plus:hardhat:given-or-token-amount-input"] = GivenOrValidTokenAmountInput;
+    promptClasses["plus:hardhat:given-or-valid-token-amount-input"] = GivenOrValidTokenAmountInput;
     promptClasses["plus:hardhat:given-or-solidity-version-select"] = GivenOrSolidityVersionSelect;
     promptClasses["plus:hardhat:given-or-valid-address-input"] = GivenOrValidAddressInput;
     promptClasses["plus:hardhat:given-or-valid-account-input"] = GivenOrValidAccountInput;

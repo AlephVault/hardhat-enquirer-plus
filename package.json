@@ -1,6 +1,6 @@
 {
   "name": "hardhat-enquirer-plus",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A hardhat plugin leveraging the power of enquirer (and our enquirer-plus) to have many new prompt types and utilities.",
   "main": "src/index.js",
   "scripts": {
