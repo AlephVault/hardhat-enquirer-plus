@@ -12,6 +12,12 @@ extendEnvironment((hre) => {
     utils.fixedpoint = fixedpoint;
     utils.contractNames = collectContractNames;
     utils.tokenAmounts = tokenAmounts;
+    utils.registerPromptClass = (classId, type) => {
+        if (promptClasses[classId]) {
+            throw new Error(`Class id ${classId} already registered`);
+        }
+        promptClasses[classId] = type;
+    }
 
     class GivenOrContractSelect extends GivenOrContractSelect_ {
         constructor(options) {

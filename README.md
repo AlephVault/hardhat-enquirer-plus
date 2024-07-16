@@ -45,3 +45,34 @@ criteria, then it used directly without actually starting the prompting.
 Also, all these prompts support the `nonInteractive` option key. If a true value is set there, and the
 prompting starts (out of no valid `given` value being set among the options), an error will be raised
 telling that the current action is not meant to become interactive.
+
+## Registering a new type
+
+Given that you create your own Enquirer-style prompt, you can register it like this:
+
+```javascript
+// Let SomePromptClass be an existing enquirer or enquirer-plus
+// prompt class.
+class YourPromptType extends SomePromptClass {
+    // ...
+}
+
+hre.enquirerPlus.utils.registerPromptClass("your-prompt-type", YourPromptType);
+```
+
+You can inherit any Enquirer type (e.g. Input, or one from enquirer-plus: `GivenOrValidInput`):
+
+```javascript
+class YourPromptType extends hre.enquirerPlus.Enquirer.GivenOrValidInput {
+    // ...
+}
+```
+
+These types are already registered:
+
+- `"plus:hardhat:given-or-contract-select"` refers to `hre.enquirerPlus.Enquirer.GivenOrContractSelect`.
+- `"plus:hardhat:given-or-valid-token-amount-input"` refers to `hre.enquirerPlus.Enquirer.GivenOrValidTokenAmountInput`.
+- `"plus:hardhat:given-or-solidity-version-select"` refers to `hre.enquirerPlus.Enquirer.GivenOrSolidityVersionSelect`.
+- `"plus:hardhat:given-or-valid-address-input"` refers to `hre.enquirerPlus.Enquirer.GivenOrValidAddressInput`.
+- `"plus:hardhat:given-or-valid-account-input"` refers to `hre.enquirerPlus.Enquirer.GivenOrValidAccountInput`.
+- `"plus:hardhat:given-or-deployed-contract-select"` refers to `hre.enquirerPlus.Enquirer.GivenOrDeployedContractSelect`.
