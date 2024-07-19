@@ -26,12 +26,10 @@ class GivenOrDeployedContractSelect extends Enquirer_.GivenOrSelect {
         this._hre = hre;
     }
 
-    async listDeployedContracts() {
-        return listDeployedContracts(this._hre, this._deploymentId);
-    }
-
     async run() {
-        const deployedContracts = await this.listDeployedContracts();
+        const deployedContracts = (await listDeployedContracts(this._hre, this._deploymentId)).map((e) => {
+            return {name: e, message: e};
+        });
         this.choices = deployedContracts;
         this.options.choices = deployedContracts;
         return await super.run();
