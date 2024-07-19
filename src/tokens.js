@@ -72,8 +72,8 @@ function dumpAmount(amount, unit) {
  * failure, returns null.
  */
 function parseTokenAmount(amount) {
-    const match = amount.match(/^(\d+(\.\d*)?|\.\d+)\s*([a-z]+)$/);
-    return match && [match[1], match[3]];
+    const match = amount.match(/^(\d+(\.\d*)?|\.\d+)\s*([a-z]+)?$/);
+    return match && [match[1], match[3] || "wei"];
 }
 
 /**
@@ -96,8 +96,8 @@ class GivenOrValidTokenAmountInput extends GivenOrValidInput {
                     return false;
                 }
             },
-            makeInvalidInputMessage: (v) => `Invalid account index or address: ${v}`,
-            onInvalidGiven: (v) => console.error(`Invalid given account index or address: ${v}`)
+            makeInvalidInputMessage: (v) => `Invalid token amount: ${v}`,
+            onInvalidGiven: (v) => console.error(`Invalid given token amount: ${v}`)
         });
     }
 
