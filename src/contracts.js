@@ -42,7 +42,15 @@ function collectContractNames(hre) {
  */
 class GivenOrContractSelect extends Enquirer_.GivenOrSelect {
     constructor({hre, ...options}) {
-        super({...options, choices: collectContractNames(hre)});
+        const choices = collectContractNames(hre);
+        if (choices.length === 0) {
+            throw new Error(
+                "A contract cannot be selected because there's no contract successfully compiled (you can fix this " +
+                "by ensuring your project has valid non-abstract solidity files and run the `npx hardhat compile` " +
+                "CLI command)"
+            );
+        }
+        super({...options, choices});
     }
 }
 
