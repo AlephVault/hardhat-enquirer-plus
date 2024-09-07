@@ -12,7 +12,16 @@ function collectContractNames(hre) {
     let contractNames = [];
     let contractArtifactsDirectoryName = path.resolve(hre.config.paths.artifacts, "contracts");
     let startPos = contractArtifactsDirectoryName.length + 1;
-    let stat = fs.statSync(contractArtifactsDirectoryName);
+    let stat = null;
+    try {
+        // We retrieve the stat. If it does NOT exist, then
+        // we return [] since the contracts are NOT compiled,
+        // but any other error will bubble.
+        stat = fs.statSync(contractArtifactsDirectoryName);
+    } catch(e) {
+        if (e.code === "ENOENT") return [];
+        throw e;
+    }
     if (stat.isDirectory()) {
         pathsUtils.traverseDirectory(contractArtifactsDirectoryName, (subPath, filename) => {
             if (filename.endsWith('.json') && !filename.endsWith('.dbg.json')) {
