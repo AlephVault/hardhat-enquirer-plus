@@ -5,7 +5,7 @@ A hardhat plugin leveraging the power of enquirer (and our enquirer-plus) to hav
 Run this command to install it from NPM:
 
 ```shell
-npm install --save-dev hardhat-common-tools@^1.4.0 hardhat-enquirer-plus@^1.4.3
+npm install --save-dev hardhat-common-tools@^1.4.0 hardhat-enquirer-plus@^1.5.0
 ```
 
 # Usage
@@ -31,6 +31,7 @@ console.log(await hre.enquirerPlus.Enquirer.prompt([
     // Asking for one of the built contracts (artifacts).
     {type: "plus:hardhat:given-or-contract-select", message: "Select a contract", name: "contract"},
     // Asking for one of the ignition-deployed contracts (artifacts) in the current network.
+    // Use `returnAddress: true` if you want to return the address instead of the contract's deployment id.
     {type: "plus:hardhat:given-or-deployed-contract-select", message: "Select a deployed contract", name: "deployed-contract"},
     // Asking for one native amount (expressed with units like this: "2ether", "1.5 ether", "0.5gwei", ...).
     {type: "plus:hardhat:given-or-valid-token-amount-input", message: "Enter an amount", name: "amount"},

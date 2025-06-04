@@ -3,26 +3,34 @@ const fs = require("fs");
 const Enquirer_ = require("enquirer-plus");
 
 /**
+ * Returns the JSON file of deployed addresses.
+ */
+async function getDeployedAddressesJsonContent(hre, deploymentId) {
+    deploymentId = deploymentId || `chain-${(await hre.common.getChainId())}`;
+    const fullPath = path.resolve(
+        hre.config.paths.root, "ignition", "deployments", deploymentId, "deployed_addresses.json"
+    );
+    return JSON.parse(fs.readFileSync(fullPath, {encoding: 'utf8'}));
+}
+
+/**
  * Lists all the deployed contract ids in a deployment id.
  * @param hre The hardhat runtime environment.
  * @param deploymentId The deployment id to get the contracts from.
  * @returns {Promise<string[]>} The list of contract ids.
  */
 async function listDeployedContracts(hre, deploymentId) {
-    deploymentId = deploymentId || `chain-${(await hre.common.getChainId())}`;
-    const fullPath = path.resolve(
-        hre.config.paths.root, "ignition", "deployments", deploymentId, "deployed_addresses.json"
-    );
-    return Object.keys(JSON.parse(fs.readFileSync(fullPath, {encoding: 'utf8'})));
+    return Object.keys(getDeployedAddressesJsonContent(hre, deploymentId));
 }
 
 /**
  * A Select prompt to choose a deployed ignition contract in the current network.
  */
 class GivenOrDeployedContractSelect extends Enquirer_.GivenOrSelect {
-    constructor({hre, deploymentId, ...options}) {
+    constructor({hre, deploymentId, returnAddress, ...options}) {
         super({...options, choices: ["Loading..."]});
         this._deploymentId = deploymentId;
+        this._returnAddress = returnAddress;
         this._hre = hre;
     }
 
@@ -32,7 +40,12 @@ class GivenOrDeployedContractSelect extends Enquirer_.GivenOrSelect {
         });
         this.choices = deployedContracts;
         this.options.choices = deployedContracts;
-        return await super.run();
+        const deploymentContractId = await super.run();
+        if (!this._returnAddress) {
+            return deploymentContractId;
+        } else {
+            return (await getDeployedAddressesJsonContent(this._hre, this._deploymentId))[deploymentContractId];
+        }
     }
 }
 
