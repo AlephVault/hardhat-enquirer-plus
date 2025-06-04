@@ -17,10 +17,10 @@ async function getDeployedAddressesJsonContent(hre, deploymentId) {
  * Lists all the deployed contract ids in a deployment id.
  * @param hre The hardhat runtime environment.
  * @param deploymentId The deployment id to get the contracts from.
- * @returns {Promise<string[]>} The list of contract ids.
+ * @returns {Promise<Array[]>} The list of contract ids.
  */
 async function listDeployedContracts(hre, deploymentId) {
-    return Object.keys(await getDeployedAddressesJsonContent(hre, deploymentId));
+    return Object.entries(await getDeployedAddressesJsonContent(hre, deploymentId));
 }
 
 /**
@@ -35,8 +35,8 @@ class GivenOrDeployedContractSelect extends Enquirer_.GivenOrSelect {
     }
 
     async run() {
-        const deployedContracts = (await listDeployedContracts(this._hre, this._deploymentId)).map((e) => {
-            return {name: e, message: e};
+        const deployedContracts = (await listDeployedContracts(this._hre, this._deploymentId)).map(([id, addr]) => {
+            return {name: this._returnAddress ? addr : id, message: id};
         });
         this.choices = deployedContracts;
         this.options.choices = deployedContracts;
