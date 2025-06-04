@@ -20,7 +20,7 @@ async function getDeployedAddressesJsonContent(hre, deploymentId) {
  * @returns {Promise<string[]>} The list of contract ids.
  */
 async function listDeployedContracts(hre, deploymentId) {
-    return Object.keys(getDeployedAddressesJsonContent(hre, deploymentId));
+    return Object.keys(await getDeployedAddressesJsonContent(hre, deploymentId));
 }
 
 /**
