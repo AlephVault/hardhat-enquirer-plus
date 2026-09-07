@@ -1,5 +1,6 @@
-const {dump, load} = require("./fixedpoint");
-const GivenOrValidInput = require("enquirer-plus/src/given-or-valid-input");
+import GivenOrValidInput from "enquirer-plus/src/given-or-valid-input.js";
+
+import {dump, load} from "./fixedpoint.js";
 
 const unitMap = {
     'wei':          0,
@@ -107,7 +108,5 @@ class GivenOrValidTokenAmountInput extends GivenOrValidInput {
     }
 }
 
-module.exports = {
-    tokenAmounts: {load: loadAmount, dump: dumpAmount},
-    GivenOrValidTokenAmountInput
-}
+export const tokenAmounts = {load: loadAmount, dump: dumpAmount};
+export {GivenOrValidTokenAmountInput};

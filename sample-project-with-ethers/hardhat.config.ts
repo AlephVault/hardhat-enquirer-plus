@@ -1,11 +1,11 @@
-import hardhatToolboxViem from "@nomicfoundation/hardhat-toolbox-viem";
+import hardhatToolboxMochaEthers from "@nomicfoundation/hardhat-toolbox-mocha-ethers";
 import { defineConfig } from "hardhat/config";
 import hardhatCommonTools from "hardhat-common-tools";
 import hardhatEnquirerPlus from "hardhat-enquirer-plus";
 
 export default defineConfig({
   plugins: [
-    hardhatToolboxViem,
+    hardhatToolboxMochaEthers,
     hardhatCommonTools,
     hardhatEnquirerPlus,
   ],

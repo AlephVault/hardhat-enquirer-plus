@@ -2,6 +2,7 @@
   "name": "sample-project-with-viem",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,10 +11,13 @@
   "license": "MIT",
   "dependencies": {
     "enquirer-plus": "^1.2.2",
-    "hardhat": "^2.22.6",
+    "hardhat": "^3.15.0",
     "hardhat-enquirer-plus": "file:.."
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0"
+    "@nomicfoundation/hardhat-toolbox-viem": "^5.0.7",
+    "@types/node": "^26.4.1",
+    "hardhat-common-tools": "file:../../hardhat-common-tools",
+    "typescript": "^7.0.2"
   }
 }

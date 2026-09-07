@@ -1,28 +1,24 @@
-const Enquirer_ = require("enquirer-plus");
+import Enquirer_ from "enquirer-plus";
 
 /**
  * The registered prompt classes.
  */
-let promptClasses = {};
+export let promptClasses = {};
 
 /**
  * The registered utils.
  */
-let utils = {};
+export let utils = {};
 
 /**
  * An extended Enquirer class, also registering hardhat-related
  * prompts.
  */
-class Enquirer extends Enquirer_ {
+export class Enquirer extends Enquirer_ {
     constructor(options, answers) {
         super(options, answers);
         Object.keys(promptClasses).forEach((key) => {
             this.register(key, promptClasses[key]);
         })
     }
-}
-
-module.exports = {
-    Enquirer, promptClasses, utils
 }

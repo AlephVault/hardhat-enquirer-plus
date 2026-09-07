@@ -1,10 +1,10 @@
-const Enquirer_ = require("enquirer-plus");
+import Enquirer_ from "enquirer-plus";
 
 /**
  * An input that takes a given value and/or asks and validates
  * the input until a valid account index is given.
  */
-class GivenOrValidAccountInput extends Enquirer_.GivenOrValidInput {
+export class GivenOrValidAccountInput extends Enquirer_.GivenOrValidInput {
     constructor({hre, ...options}) {
         super({
             ...options, validate: (v) => this._isAccount(v),
@@ -25,8 +25,4 @@ class GivenOrValidAccountInput extends Enquirer_.GivenOrValidInput {
             return null;
         }
     }
-}
-
-module.exports = {
-    GivenOrValidAccountInput
 }

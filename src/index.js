@@ -1,14 +1,13 @@
-const {extendEnvironment} = require("hardhat/config");
-const {Enquirer, utils, promptClasses} = require("./core");
-const fixedpoint = require("./fixedpoint");
-const {collectContractNames, GivenOrContractSelect: GivenOrContractSelect_} = require("./contracts");
-const {GivenOrSolidityVersionSelect: GivenOrSolidityVersionSelect_} = require("./solidity");
-const {GivenOrValidTokenAmountInput, tokenAmounts} = require("./tokens");
-const {GivenOrValidAddressInput: GivenOrValidAddressInput_} = require("./addresses");
-const {GivenOrValidAccountInput: GivenOrValidAccountInput_} = require("./accounts");
-const {GivenOrDeployedContractSelect: GivenOrDeployedContractSelect_, listDeployedContracts} = require("./deployments");
+function installEnquirerPlus(hre, modules) {
+    const {Enquirer, utils, promptClasses} = modules.core;
+    const fixedpoint = modules.fixedpoint.default ?? modules.fixedpoint;
+    const {collectContractNames, GivenOrContractSelect: GivenOrContractSelect_} = modules.contracts;
+    const {GivenOrSolidityVersionSelect: GivenOrSolidityVersionSelect_} = modules.solidity;
+    const {GivenOrValidTokenAmountInput, tokenAmounts} = modules.tokens;
+    const {GivenOrValidAddressInput: GivenOrValidAddressInput_} = modules.addresses;
+    const {GivenOrValidAccountInput: GivenOrValidAccountInput_} = modules.accounts;
+    const {GivenOrDeployedContractSelect: GivenOrDeployedContractSelect_, listDeployedContracts} = modules.deployments;
 
-extendEnvironment((hre) => {
     utils.fixedpoint = fixedpoint;
     utils.contractNames = collectContractNames;
     utils.tokenAmounts = tokenAmounts;
@@ -69,6 +68,30 @@ extendEnvironment((hre) => {
     if (hre.ignition) {
         hre.ignition.listDeployedContracts = (deploymentId) => listDeployedContracts(hre, deploymentId);
     }
-});
+}
 
-module.exports = {};
+const hardhatEnquirerPlusPlugin = {
+    id: "hardhat-enquirer-plus",
+    npmPackage: "hardhat-enquirer-plus",
+    hookHandlers: {
+        hre: async () => ({
+            default: async () => ({
+                created: async (_context, hre) => {
+                    const modules = {
+                        core: await import("./core.js"),
+                        fixedpoint: await import("./fixedpoint.js"),
+                        contracts: await import("./contracts.js"),
+                        solidity: await import("./solidity.js"),
+                        tokens: await import("./tokens.js"),
+                        addresses: await import("./addresses.js"),
+                        accounts: await import("./accounts.js"),
+                        deployments: await import("./deployments.js"),
+                    };
+                    installEnquirerPlus(hre, modules);
+                },
+            }),
+        }),
+    },
+};
+
+export default hardhatEnquirerPlusPlugin;

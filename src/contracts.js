@@ -1,14 +1,15 @@
-const Enquirer_ = require("enquirer-plus");
-const pathsUtils = require("./paths");
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
+import Enquirer_ from "enquirer-plus";
+
+import * as pathsUtils from "./paths.js";
 
 /**
  * Collects all the contract names from the compiled artifacts.
  * @param hre The hardhat runtime environment.
  * @returns {*[]} The list of contract names.
  */
-function collectContractNames(hre) {
+export function collectContractNames(hre) {
     let contractNames = [];
     let contractArtifactsDirectoryName = path.resolve(hre.config.paths.artifacts, "contracts");
     let startPos = contractArtifactsDirectoryName.length + 1;
@@ -40,7 +41,7 @@ function collectContractNames(hre) {
 /**
  * A Select of the current in-project contract artifacts.
  */
-class GivenOrContractSelect extends Enquirer_.GivenOrSelect {
+export class GivenOrContractSelect extends Enquirer_.GivenOrSelect {
     constructor({hre, ...options}) {
         const choices = collectContractNames(hre);
         if (choices.length === 0) {
@@ -52,9 +53,4 @@ class GivenOrContractSelect extends Enquirer_.GivenOrSelect {
         }
         super({...options, choices});
     }
-}
-
-
-module.exports = {
-    GivenOrContractSelect, collectContractNames
 }

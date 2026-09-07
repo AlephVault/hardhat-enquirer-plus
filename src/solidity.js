@@ -1,4 +1,16 @@
-const GivenOrSelect = require("enquirer-plus/src/given-or-select");
+import GivenOrSelect from "enquirer-plus/src/given-or-select.js";
+
+function compareVersions(v1, v2) {
+    const v1parts = v1.split(".").map((part) => parseInt(part));
+    const v2parts = v2.split(".").map((part) => parseInt(part));
+
+    for (let i = 0; i < 3; i++) {
+        if (v1parts[i] > v2parts[i]) return 1;
+        if (v1parts[i] < v2parts[i]) return -1;
+    }
+
+    return 0;
+}
 
 /**
  * Gets the {initial, choices} settings of solidity versions
@@ -7,14 +19,19 @@ const GivenOrSelect = require("enquirer-plus/src/given-or-select");
  * @returns {Promise<{initial: string, choices: {name: *, message: *}[]}>}
  * The settings (async function).
  */
-function getSolidityVersionSettings(hre) {
+export function getSolidityVersionSettings(hre) {
     let compilerVersions = [];
     try {
-        compilerVersions = hre.config.solidity.compilers.map((entry) => {
+        const profiles = hre.config.solidity.profiles;
+        const compilers = profiles
+            ? Object.values(profiles).flatMap((profile) => profile.compilers || [])
+            : hre.config.solidity.compilers;
+
+        compilerVersions = [...new Set(compilers.map((entry) => {
             return (entry.version || "").trim();
         }).filter((version) => {
-            return /\d+\.\d+\.\d+/.test(version);
-        });
+            return /^\d+\.\d+\.\d+$/.test(version);
+        }))];
     } catch(e) {
         throw new Error(
             "Your Hardhat config seems to not have the appropriate format " +
@@ -28,15 +45,7 @@ function getSolidityVersionSettings(hre) {
         "Define at least one Solidity compiler entry (with proper version format)."
     );
 
-    const initial = compilerVersions.reduce((v1, v2) => {
-        const v1parts = v1.split(".");
-        const v2parts = v2.split(".");
-
-        if (parseInt(v1parts[0]) > parseInt(v2parts[0])) return v1;
-        if (parseInt(v1parts[1]) > parseInt(v2parts[1])) return v1;
-        if (parseInt(v1parts[2]) > parseInt(v2parts[2])) return v1;
-        return v2;
-    });
+    const initial = compilerVersions.reduce((v1, v2) => compareVersions(v1, v2) >= 0 ? v1 : v2);
 
     const choices = compilerVersions.map((version) => {
         return {name: version, message: version}
@@ -48,13 +57,9 @@ function getSolidityVersionSettings(hre) {
 /**
  * A Select for the solidity version prompt.
  */
-class GivenOrSolidityVersionSelect extends GivenOrSelect {
+export class GivenOrSolidityVersionSelect extends GivenOrSelect {
     constructor({hre, ...options}) {
         const newOptions = {...options, ...(getSolidityVersionSettings(hre))};
         super(newOptions);
     }
 }
-
-module.exports = {
-    GivenOrSolidityVersionSelect
-};

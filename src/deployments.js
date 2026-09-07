@@ -1,6 +1,6 @@
-const path = require("path");
-const fs = require("fs");
-const Enquirer_ = require("enquirer-plus");
+import path from "path";
+import fs from "fs";
+import Enquirer_ from "enquirer-plus";
 
 /**
  * Returns the JSON file of deployed addresses.
@@ -19,14 +19,14 @@ async function getDeployedAddressesJsonContent(hre, deploymentId) {
  * @param deploymentId The deployment id to get the contracts from.
  * @returns {Promise<Array[]>} The list of contract ids.
  */
-async function listDeployedContracts(hre, deploymentId) {
+export async function listDeployedContracts(hre, deploymentId) {
     return Object.entries(await getDeployedAddressesJsonContent(hre, deploymentId));
 }
 
 /**
  * A Select prompt to choose a deployed ignition contract in the current network.
  */
-class GivenOrDeployedContractSelect extends Enquirer_.GivenOrSelect {
+export class GivenOrDeployedContractSelect extends Enquirer_.GivenOrSelect {
     constructor({hre, deploymentId, returnAddress, ...options}) {
         super({...options, choices: ["Loading..."]});
         this._deploymentId = deploymentId;
@@ -47,8 +47,4 @@ class GivenOrDeployedContractSelect extends Enquirer_.GivenOrSelect {
             return (await getDeployedAddressesJsonContent(this._hre, this._deploymentId))[deploymentContractId];
         }
     }
-}
-
-module.exports = {
-    listDeployedContracts, GivenOrDeployedContractSelect
 }

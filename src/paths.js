@@ -1,12 +1,12 @@
-const path = require("path");
-const fs = require("fs");
+import path from "path";
+import fs from "fs";
 
 /**
  * Traverses a directory, applying a callback on each file.
  * @param directory The directory to traverse (ideally, absolute).
  * @param callback The callback (current absolute directory, local filename) to invoke.
  */
-function traverseDirectory(directory, callback)
+export function traverseDirectory(directory, callback)
 {
     let files = [];
 
@@ -35,7 +35,7 @@ function traverseDirectory(directory, callback)
  * @param hre The hardhat runtime environment.
  * @returns The project path.
  */
-function getProjectPrefix(hre) {
+export function getProjectPrefix(hre) {
     let root = hre.config.paths.root;
     while (root.endsWith('/')) root = root.substring(0, root.length - 1);
     return root;
@@ -50,7 +50,7 @@ function getProjectPrefix(hre) {
  * file without the project prefix. Otherwise, stripped?=false
  * and file=file.
  */
-function removeProjectPrefix(file, hre) {
+export function removeProjectPrefix(file, hre) {
     const prefix = getProjectPrefix(hre) + "/";
     if (file.startsWith(prefix)) {
         return {file: file.substring(prefix.length), stripped: true}
@@ -70,11 +70,6 @@ function removeProjectPrefix(file, hre) {
  * path and stripped?=true. Otherwise, returns its absolute path
  * and stripped?=false.
  */
-function normalizeByProjectPrefix(file, hre) {
+export function normalizeByProjectPrefix(file, hre) {
     return removeProjectPrefix(path.resolve(getProjectPrefix(hre), file), hre);
-}
-
-module.exports = {
-    getProjectPrefix, removeProjectPrefix, normalizeByProjectPrefix,
-    traverseDirectory
 }

@@ -47,7 +47,7 @@ function trimFractional(fractional) {
  * @param value The value
  * @param decimals The amount of decimals
  */
-function load(value, decimals) {
+export function load(value, decimals) {
     value = (value || "").toString().trim();
     decimals = toNumber(decimals);
     if (typeof decimals === "bigint") decimals = Number(decimals);
@@ -72,7 +72,7 @@ function load(value, decimals) {
  * @param value The value to dump.
  * @param decimals The amount of decimals to consider.
  */
-function dump(value, decimals) {
+export function dump(value, decimals) {
     value = toNumber(value, true).toString();
     decimals = toNumber(decimals, false);
     if (value === "0") {
@@ -86,9 +86,4 @@ function dump(value, decimals) {
             "." + value.substring(value.length - decimals)
         );
     }
-}
-
-
-module.exports = {
-    load, dump
 }
